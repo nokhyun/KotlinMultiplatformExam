@@ -1,0 +1,1 @@
+val GREETING = "Hello World!"
