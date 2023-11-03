@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,35 +16,37 @@ import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
-    MaterialTheme {
-        var greetingText by remember { mutableStateOf(GREETING) }
-        var showImage by remember { mutableStateOf(false) }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = {
-                greetingText = "Compose on ${getPlatformName()}: $GREETING"
-                showImage = !showImage
-            }) {
-                Text(greetingText)
-            }
-            AnimatedVisibility(showImage) {
-//                Image(
-//                    painterResource("compose-multiplatform.xml"),
-//                    null
-//                )
-                SubScreen()
-            }
+    Contents()
+}
+
+@OptIn(ExperimentalResourceApi::class)
+@Composable
+fun HomeScreen() {
+    var greetingText by remember { mutableStateOf(GREETING) }
+    var showImage by remember { mutableStateOf(false) }
+    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Button(onClick = {
+            greetingText = "Compose on ${getPlatformName()}: $GREETING"
+            showImage = !showImage
+        }) {
+            Text(greetingText)
+        }
+        AnimatedVisibility(showImage) {
+            Image(
+                painterResource("compose-multiplatform.xml"),
+                null
+            )
         }
     }
 }
 
 @Composable
-fun SubScreen(){
+fun SubScreen() {
     Box(
         modifier = Modifier.fillMaxSize()
-    ){
+    ) {
         Text("Welcome SubScreen!")
     }
 }
