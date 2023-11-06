@@ -5,12 +5,14 @@ import androidx.compose.ui.window.application
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication) {
-        App()
+//        MainView()
+//        App()
     }
 }
 
 @Preview
 @Composable
 fun AppDesktopPreview() {
-    App()
+//    MainView()
+//    App()
 }
