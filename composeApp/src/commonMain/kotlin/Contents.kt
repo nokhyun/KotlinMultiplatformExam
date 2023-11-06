@@ -17,7 +17,7 @@ fun Contents() {
     var screenType by remember { mutableStateOf(BottomNavigationType.HOME) }
 
     MaterialTheme {
-        when(screenType){
+        when (screenType) {
             BottomNavigationType.HOME -> HomeScreen()
             BottomNavigationType.SUB -> SubScreen()
         }
@@ -32,8 +32,10 @@ fun Contents() {
 
 @Composable
 fun BottomNavigation(
-    onScreenChange: (BottomNavigationType) -> Unit
-) {
+    onScreenChange: (BottomNavigationType) -> Unit,
+
+    ) {
+
     var label1State by remember { mutableStateOf(true) }
     var label2State by remember { mutableStateOf(false) }
 

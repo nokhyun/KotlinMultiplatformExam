@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,10 +16,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import screens.HomeScreen
 
 @Composable
-fun App() {
-    Contents()
+fun App(
+    homeScreen: HomeScreen = HomeScreen()
+) {
+
+    Navigator(homeScreen)
+//    Contents()
+}
+
+@Composable
+fun Navigator(
+    homeScreen: HomeScreen
+){
+    MaterialTheme {
+        homeScreen.Content()
+    }
 }
 
 @OptIn(ExperimentalResourceApi::class)
@@ -50,3 +65,4 @@ fun SubScreen() {
         Text("Welcome SubScreen!")
     }
 }
+
