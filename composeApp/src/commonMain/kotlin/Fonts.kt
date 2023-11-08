@@ -1,3 +1,4 @@
+import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -41,6 +42,11 @@ data object RubikFont : Font {
 }
 
 interface Typo {
+    val typography: Typography
+        @Composable get
+}
+
+interface TextStyles {
     @Composable
     fun h1(): TextStyle
 
@@ -81,7 +87,7 @@ interface Typo {
     fun overline(): TextStyle
 }
 
-data object Typography : Typo {
+data object Typography : TextStyles, Typo {
     @Composable
     override fun h1(): TextStyle = TextStyle(
         fontWeight = FontWeight.Light,
@@ -185,4 +191,21 @@ data object Typography : Typo {
         letterSpacing = 1.5.sp,
         fontFamily = RubikFont.Regular()
     )
+
+    override val typography: Typography
+        @Composable get() = Typography(
+            h1 = h1(),
+            h2 = h2(),
+            h3 = h3(),
+            h4 = h4(),
+            h5 = h5(),
+            h6 = h6(),
+            subtitle1 = subtitle1(),
+            subtitle2 = subtitle2(),
+            body1 = body1(),
+            body2 = body2(),
+            button = button(),
+            caption = caption(),
+            overline = overline()
+        )
 }
