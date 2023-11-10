@@ -1,6 +1,5 @@
 package com.nokhyun.kmmexam
 
-import App
 import MainView
 import android.os.Bundle
 import android.widget.Toast

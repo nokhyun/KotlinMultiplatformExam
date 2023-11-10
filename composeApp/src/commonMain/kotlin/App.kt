@@ -17,6 +17,7 @@ import model.recipesList
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.resource
 import sensor.SensorManager
+import sharedelementtransaction.SharedElementsRoot
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -41,6 +42,12 @@ fun App(sensorManager: SensorManager, isLarge: Boolean = false) {
                 }
         )
 
+        SharedElementsRoot {
+            val sharedTransaction = this
 
+            Box {
+
+            }
+        }
     }
 }
