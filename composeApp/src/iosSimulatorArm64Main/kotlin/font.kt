@@ -18,3 +18,9 @@ actual fun font(name: String, res: String, weight: FontWeight, style: FontStyle)
         androidx.compose.ui.text.platform.Font(res, byteArray, weight, style)
     }
 }
+
+actual class PlatformContext
+
+actual fun getPlatformContext(): PlatformContext {
+    TODO("Not yet implemented")
+}

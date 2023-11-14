@@ -6,11 +6,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -23,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import model.Recipe
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -124,10 +127,49 @@ fun RecipeListItem(
                                     style = MaterialTheme.typography.h4
                                 )
                             }
+
+                            SharedElement(
+                                key = "${recipe.description}${updateIds}",
+                                screenKey = "ListScreen",
+                                transitionSpec = CrossFadeTransitionSpec
+                            ) {
+                                Text(
+                                    modifier = Modifier
+                                        .padding(top = 8.dp),
+                                    text = recipe.description,
+                                    style = MaterialTheme.typography.subtitle1,
+                                    maxLines = 3,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.weight(1f))
                         }
                     }
                 }
             }
+        }
+        image.value?.let {
+            RecipeListItemImageWrapper(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .fillMaxWidth(0.45f)
+                    .aspectRatio(1f),
+                child = {
+                    SharedMaterialContainer(
+                        key = "${recipe.image}${updateIds}",
+                        screenKey = "ListScreen",
+                        shape = CircleShape,
+                        color = Color.Transparent,
+                        transitionSpec = FadeOutTransitionSpec
+                    ){
+                        RecipeImage(
+                            imageBitmap = it,
+                            modifier = Modifier
+                        )
+                    }
+                }
+            )
         }
     }
 }

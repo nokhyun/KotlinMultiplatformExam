@@ -12,3 +12,9 @@ actual fun font(name: String, res: String, weight: FontWeight, style: FontStyle)
     val id = context.resources.getIdentifier(res, "font", context.packageName)
     return Font(id, weight, style)
 }
+
+actual class PlatformContext
+
+actual fun getPlatformContext(): PlatformContext {
+    TODO("Not yet implemented")
+}
