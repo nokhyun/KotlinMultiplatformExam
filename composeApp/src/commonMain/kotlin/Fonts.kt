@@ -1,5 +1,6 @@
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -17,6 +18,7 @@ interface Font {
     fun Bold(): FontFamily
 }
 
+@Immutable
 data object RubikFont : Font {
 
     @Composable
@@ -87,6 +89,7 @@ interface TextStyles {
     fun overline(): TextStyle
 }
 
+@Immutable
 data object Typography : TextStyles, Typo {
     @Composable
     override fun h1(): TextStyle = TextStyle(

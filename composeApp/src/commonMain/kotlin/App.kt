@@ -27,7 +27,7 @@ const val DetailsScreen = "details"
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App(sensorManager: SensorManager, isLarge: Boolean = false) {
-    MaterialTheme(typography = Typography.typography) {
+    MaterialTheme {
         val items by remember { mutableStateOf(recipesList) }
         var width by remember { mutableStateOf(0) }
         var currentScreen by remember { mutableStateOf<Screens>(Screens.RecipesList) }
@@ -69,7 +69,7 @@ fun App(sensorManager: SensorManager, isLarge: Boolean = false) {
                 )
             }
 
-            when(val screen = currentScreen){
+            when (val screen = currentScreen) {
                 is Screens.RecipeDetails -> {
                     RecipeDetails(
                         isLarge = isLarge,
@@ -90,6 +90,7 @@ fun App(sensorManager: SensorManager, isLarge: Boolean = false) {
                         }
                     )
                 }
+
                 Screens.RecipesList -> {}
             }
         }

@@ -1,6 +1,7 @@
 package recipeslist
 
 import ImageBitmap.toImageBitmap
+import ListScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -38,8 +39,6 @@ import sharedelementtransaction.SharedElement
 import sharedelementtransaction.SharedElementsTransitionSpec
 import sharedelementtransaction.SharedMaterialContainer
 
-const val ListScreen = "list"
-const val DetailScreen = "details"
 private const val TransitionDurationMillis = 700
 val FadeOutTransitionSpec = MaterialContainerTransformSpec(
     durationMillis = TransitionDurationMillis,
@@ -75,7 +74,9 @@ fun RecipeListItem(
         image.value = resource(recipe.image).readBytes().toImageBitmap()
     }
 
-    Box {
+    Box(
+        modifier = Modifier
+    ) {
         Box(
             modifier = Modifier
                 .padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 16.dp)
@@ -94,7 +95,6 @@ fun RecipeListItem(
                     onClick(recipe, image.value!!)
                 }
         ) {
-            // TODO
             SharedMaterialContainer(
                 key = "$recipe $updateIds",
                 screenKey = ListScreen,

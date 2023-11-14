@@ -15,6 +15,4 @@ actual fun font(name: String, res: String, weight: FontWeight, style: FontStyle)
 
 actual class PlatformContext
 
-actual fun getPlatformContext(): PlatformContext {
-    TODO("Not yet implemented")
-}
+actual fun getPlatformContext(): PlatformContext = PlatformContext()
