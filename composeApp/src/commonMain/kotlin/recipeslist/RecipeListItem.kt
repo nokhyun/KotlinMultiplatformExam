@@ -4,15 +4,21 @@ import ImageBitmap.toImageBitmap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
@@ -21,6 +27,36 @@ import androidx.compose.ui.unit.dp
 import model.Recipe
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.resource
+import sharedelementtransaction.FadeMode
+import sharedelementtransaction.MaterialArcMotionFactory
+import sharedelementtransaction.MaterialContainerTransformSpec
+import sharedelementtransaction.ProgressThresholds
+import sharedelementtransaction.SharedElement
+import sharedelementtransaction.SharedElementsTransitionSpec
+import sharedelementtransaction.SharedMaterialContainer
+
+const val ListScreen = "list"
+const val DetailScreen = "details"
+private const val TransitionDurationMillis = 700
+val FadeOutTransitionSpec = MaterialContainerTransformSpec(
+    durationMillis = TransitionDurationMillis,
+    fadeMode = FadeMode.Out
+)
+val CrossFadeTransitionSpec = SharedElementsTransitionSpec(
+    durationMillis = TransitionDurationMillis,
+    fadeMode = FadeMode.Cross,
+    fadeProgressThresholds = ProgressThresholds(0.10f, 0.40f)
+)
+val MaterialFadeInTransitionSpec = MaterialContainerTransformSpec(
+    pathMotionFactory = MaterialArcMotionFactory,
+    durationMillis = TransitionDurationMillis,
+    fadeMode = FadeMode.In
+)
+val MaterialFadeOutTransitionSpec = MaterialContainerTransformSpec(
+    pathMotionFactory = MaterialArcMotionFactory,
+    durationMillis = TransitionDurationMillis,
+    fadeMode = FadeMode.Out
+)
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -54,8 +90,44 @@ fun RecipeListItem(
                 .clickable {
                     onClick(recipe, image.value!!)
                 }
-        ){
+        ) {
             // TODO
+            SharedMaterialContainer(
+                key = "$recipe $updateIds",
+                screenKey = ListScreen,
+                shape = RoundedCornerShape(35.dp),
+                color = recipe.bgColor,
+                elevation = 0.dp,
+                transitionSpec = MaterialFadeOutTransitionSpec
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .padding(16.dp)
+                            .fillMaxWidth(0.55f),
+                        verticalAlignment = Alignment.Bottom
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .align(Alignment.Bottom)
+                        ) {
+                            SharedElement(
+                                key = "${recipe.title}${updateIds}",
+                                screenKey = "ListScreen",
+                                transitionSpec = CrossFadeTransitionSpec
+                            ) {
+                                Text(
+                                    recipe.title,
+                                    style = MaterialTheme.typography.h4
+                                )
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
