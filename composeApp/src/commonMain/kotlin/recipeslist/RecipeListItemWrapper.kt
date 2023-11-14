@@ -52,7 +52,7 @@ fun RecipeListItemWrapper(
 
     LaunchedEffect(Unit) {
         scaleAnimatable.animateTo(
-            8.0f,
+            1f,
             animationSpec = tween(
                 durationMillis = 700,
                 easing = CubicBezierEasing(0f, 0.5f, 0.5f, 1f)
