@@ -1,7 +1,9 @@
 package sensor
 
 actual class SensorManager {
-    actual fun registerListener(listener: Listener) {
-    }
 
+    var listener: Listener? = null
+    actual fun registerListener(listener: Listener) {
+        this.listener = listener
+    }
 }
