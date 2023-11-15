@@ -1,3 +1,4 @@
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
@@ -13,6 +14,7 @@ actual fun font(name: String, res: String, weight: FontWeight, style: FontStyle)
     return Font(id, weight, style)
 }
 
-actual class PlatformContext
+actual class PlatformContext(val android: Context)
 
-actual fun getPlatformContext(): PlatformContext = PlatformContext()
+@Composable
+actual fun getPlatformContext(): PlatformContext = PlatformContext(LocalContext.current)

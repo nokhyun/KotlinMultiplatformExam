@@ -9,6 +9,8 @@ expect fun getPlatformName(): String
 expect fun font(name: String, res: String, weight: FontWeight, style: FontStyle): Font
 
 expect class PlatformContext
+
+@Composable
 expect fun getPlatformContext(): PlatformContext
 
 fun logger(log: () -> Any?) {
