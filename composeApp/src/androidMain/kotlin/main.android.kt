@@ -2,6 +2,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -10,7 +11,9 @@ import sensor.SensorDataManager
 import sensor.SensorManager
 
 @Composable
-fun MainView() {
+fun MainView(
+    onBackPressed: SharedFlow<Unit>? = null
+) {
     val sensorManager = SensorManager()
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -32,5 +35,8 @@ fun MainView() {
         }
     }
 
-    App(sensorManager = sensorManager)
+    App(
+        sensorManager = sensorManager,
+        onBackPressed = onBackPressed
+    )
 }

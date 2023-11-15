@@ -21,4 +21,5 @@ actual fun font(name: String, res: String, weight: FontWeight, style: FontStyle)
 
 actual class PlatformContext
 
+@Composable
 actual fun getPlatformContext(): PlatformContext = PlatformContext()
