@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.onGloballyPositioned
+import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import details.RecipeDetails
 import kotlinx.coroutines.Dispatchers
@@ -35,9 +36,9 @@ const val DetailsScreen = "details"
 fun App(
     sensorManager: SensorManager,
     isLarge: Boolean = false,
-    onBackPressed: SharedFlow<Unit>? = null
+    onBackPressed: SharedFlow<Unit>? = null,
 ) {
-    when(getPlatformName()){
+    when (getPlatformName()) {
         "Android" -> NavigatorExam()
         else -> RecipeScreen(sensorManager, isLarge, onBackPressed)
     }
@@ -49,8 +50,8 @@ fun RecipeScreen(
     sensorManager: SensorManager,
     isLarge: Boolean = false,
     onBackPressed: SharedFlow<Unit>? = null
-){
-        MaterialTheme {
+) {
+    MaterialTheme {
         val items by remember { mutableStateOf(recipesList) }
         var width by remember { mutableStateOf(0) }
         var currentScreen by remember { mutableStateOf<Screens>(Screens.RecipesList) }
@@ -141,7 +142,7 @@ fun RecipeScreen(
 }
 
 @Composable
-fun NavigatorExam(){
+fun NavigatorExam() {
     Navigator(
         screen = HomeScreen(),
         onBackPressed = { currentScreen ->

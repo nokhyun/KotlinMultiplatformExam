@@ -13,6 +13,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -38,12 +39,14 @@ class HomeScreen(
         val navigator = LocalNavigator.currentOrThrow
         val screenModel = rememberScreenModel { HomeScreenModel() }
 
+        // TODO 상태관리 위로 끌려올려야할듯?
+
         LifecycleEffect(
             onStarted = {
                 logger { "Navigator: StartScreen: #$index" }
             },
             onDisposed = {
-                logger { "Navigator: DisposeScreen: $index" }
+                logger { "Navigator: DisposeScreen: $index :: navigator.canPop: ${navigator.canPop}" }
             }
         )
 

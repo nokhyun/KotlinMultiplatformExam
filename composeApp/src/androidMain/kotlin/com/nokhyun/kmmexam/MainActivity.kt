@@ -10,7 +10,10 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
+import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import logger
 import sharedelementtransaction.HomeScreen
 
 @OptIn(InternalVoyagerApi::class)
@@ -22,17 +25,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         onBackPressedDispatcher.addCallback(this) {
-            // 페이지전환 스택관리 따로 만들어서 써야하나..?
-//            Toast.makeText(this@MainActivity, "finish", Toast.LENGTH_SHORT).show()
-//            finish()
-
-            mainViewModel.onBackPressed()
+            finish()
         }
 
         setContent {
-            MainView(
-                onBackPressed = mainViewModel.onBackPressed
-            )
+            MainView()
         }
     }
 }
