@@ -12,12 +12,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.onGloballyPositioned
+import cafe.adriel.voyager.navigator.Navigator
 import details.RecipeDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import model.recipesList
@@ -25,19 +25,32 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.resource
 import recipeslist.RecipesListScreen
 import sensor.SensorManager
+import sharedelementtransaction.HomeScreen
 import sharedelementtransaction.SharedElementsRoot
 
 const val ListScreen = "list"
 const val DetailsScreen = "details"
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App(
     sensorManager: SensorManager,
     isLarge: Boolean = false,
     onBackPressed: SharedFlow<Unit>? = null
 ) {
-    MaterialTheme {
+    when(getPlatformName()){
+        "Android" -> NavigatorExam()
+        else -> RecipeScreen(sensorManager, isLarge, onBackPressed)
+    }
+}
+
+@OptIn(ExperimentalResourceApi::class)
+@Composable
+fun RecipeScreen(
+    sensorManager: SensorManager,
+    isLarge: Boolean = false,
+    onBackPressed: SharedFlow<Unit>? = null
+){
+        MaterialTheme {
         val items by remember { mutableStateOf(recipesList) }
         var width by remember { mutableStateOf(0) }
         var currentScreen by remember { mutableStateOf<Screens>(Screens.RecipesList) }
@@ -125,4 +138,15 @@ fun App(
             }
         }
     }
+}
+
+@Composable
+fun NavigatorExam(){
+    Navigator(
+        screen = HomeScreen(),
+        onBackPressed = { currentScreen ->
+            logger { "Navigator Pop Screen!! :: $currentScreen" }
+            true
+        }
+    )
 }

@@ -39,6 +39,8 @@ kotlin {
                 implementation(libs.compose.ui)
                 implementation(libs.compose.ui.tooling.preview)
                 implementation(libs.androidx.activity.compose)
+                implementation(libs.compose.navigation)
+                implementation(libs.androidx.runtime.saveable)
             }
         }
         val desktopMain by getting {
@@ -53,6 +55,14 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                // Navigator
+                implementation(libs.voyager.navigator)
+                // BottomSheetNavigator
+                implementation(libs.voyager.bottom.sheet.navigator)
+                // TabNavigator
+                implementation(libs.voyager.tab.navigator)
+                // Transitions
+                implementation(libs.voyager.transitions)
             }
         }
 

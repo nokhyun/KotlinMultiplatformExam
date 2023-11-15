@@ -9,7 +9,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
+import cafe.adriel.voyager.navigator.Navigator
+import sharedelementtransaction.HomeScreen
 
+@OptIn(InternalVoyagerApi::class)
 class MainActivity : ComponentActivity() {
 
     private val mainViewModel: MainViewModel by viewModels { MainViewModel.Factory }
