@@ -39,6 +39,7 @@ fun App(
     onBackPressed: SharedFlow<Unit>? = null,
 ) {
     when (getPlatformName()) {
+        "iOS",
         "Android" -> NavigatorExam()
         else -> RecipeScreen(sensorManager, isLarge, onBackPressed)
     }
