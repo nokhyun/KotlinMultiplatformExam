@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import model.recipesList
+import network_exam.NetworkExam
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.resource
 import recipeslist.RecipesListScreen
@@ -40,7 +41,8 @@ fun App(
 ) {
     when (getPlatformName()) {
         "iOS",
-        "Android" -> NavigatorExam()
+//        "Android" -> NavigatorExam()
+        "Android" -> NetworkExam()
         else -> RecipeScreen(sensorManager, isLarge, onBackPressed)
     }
 }
