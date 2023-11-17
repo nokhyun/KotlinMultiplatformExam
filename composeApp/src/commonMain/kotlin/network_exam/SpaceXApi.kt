@@ -7,6 +7,8 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.get
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.util.reflect.TypeInfo
 import kotlinx.serialization.json.Json
@@ -18,6 +20,12 @@ suspend fun getAllLaunches(spaceXApi: SpaceXApi): List<RocketLaunch> {
 
 suspend fun getTodos(spaceXApi: SpaceXApi): Todos{
     return spaceXApi.httpClient.get("https://jsonplaceholder.typicode.com/todos/1").body()
+}
+
+suspend fun postTodo(spaceXApi: SpaceXApi) {
+    spaceXApi.httpClient.post("https://jsonplaceholder.typicode.com/posts"){
+        setBody("test")
+    }
 }
 
 
