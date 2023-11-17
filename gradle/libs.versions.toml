@@ -14,13 +14,19 @@ androidx-constraintlayout = "2.1.4"
 androidx-test-junit = "1.1.5"
 androidx-espresso-core = "3.5.1"
 compose-navigation = "2.7.5"
+dateTimeVersion = "0.4.1"
+coroutinesVersion = "1.7.3"
 kamelImage = "0.8.2"
 kotlin = "1.9.10"
 junit = "4.13.2"
+ktorClientSerialization = "2.3.5"
+ktorClientCore = "2.3.5"
 runtimeSaveable = "1.5.4"
+sqlDelightVersion = "1.5.5"
 voyagerVersion = "1.0.0-rc10"
 
 [libraries]
+android-driver = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqlDelightVersion" }
 androidx-runtime-saveable = { module = "androidx.compose.runtime:runtime-saveable", version.ref = "runtimeSaveable" }
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -39,6 +45,17 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "dateTimeVersion" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutinesVersion" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClientSerialization" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientSerialization" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorClientSerialization" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientSerialization" }
+ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktorClientSerialization" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorClientSerialization" }
+native-driver = { module = "com.squareup.sqldelight:native-driver", version.ref = "sqlDelightVersion" }
+runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqlDelightVersion" }
 voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyagerVersion" }
 voyager-tab-navigator = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyagerVersion" }
 voyager-bottom-sheet-navigator = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyagerVersion" }
