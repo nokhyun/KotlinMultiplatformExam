@@ -1,14 +1,21 @@
 import SwiftUI
+import ComposeApp
 
 @main
 struct iOSApp: App {
     
+    init() {
+        HelperKt.doInitKoin()
+    }
+    
+    private let navigateName = "navigate"
+
     @State private var showMainView = false
 	var body: some Scene {
 		WindowGroup {
             if showMainView {
                 NavigationView(content: {
-                    NavigationLink(destination: ContentView()) { /*@START_MENU_TOKEN@*/Text("Navigate")/*@END_MENU_TOKEN@*/ }
+                    NavigationLink(destination: ContentView()) { Text(self.navigateName)}
                 })
             }else {
                 SplashView()

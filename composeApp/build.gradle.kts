@@ -85,6 +85,10 @@ kotlin {
                 implementation(libs.voyager.tab.navigator)
                 // Transitions
                 implementation(libs.voyager.transitions)
+                // koin
+//                implementation(libs.koin.core)
+//                implementation(libs.koin.test)
+//                implementation("io.insert-koin:koin-android:3.2.0")
             }
         }
 
@@ -104,6 +108,9 @@ kotlin {
                 implementation(libs.ktor.client.logging)
 
 //                implementation("app.cash.sqldelight:sqlite-driver:2.0.0")
+
+                implementation(libs.koin.core)
+                implementation(libs.koin.test)
             }
         }
     }
