@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.onGloballyPositioned
 import cafe.adriel.voyager.navigator.Navigator
 import details.RecipeDetails
+import io.kamel.core.config.KamelConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -42,7 +43,9 @@ fun App(
 //        "iOS" -> NetworkExam()
 //        "Android" -> NavigatorExam()
         "iOS",
-        "Android" -> FakePagingExam()
+        "Android",
+        -> FakePagingExam()
+
         else -> RecipeScreen(sensorManager, isLarge, onBackPressed)
     }
 }
@@ -52,7 +55,7 @@ fun App(
 fun RecipeScreen(
     sensorManager: SensorManager,
     isLarge: Boolean = false,
-    onBackPressed: SharedFlow<Unit>? = null
+    onBackPressed: SharedFlow<Unit>? = null,
 ) {
     MaterialTheme {
         val items by remember { mutableStateOf(recipesList) }
@@ -156,10 +159,10 @@ fun NavigatorExam() {
 }
 
 @Composable
-fun FakePagingExam(){
+fun FakePagingExam() {
     Navigator(
         screen = FakePagingScreen(),
-        onBackPressed = {currentScreen ->
+        onBackPressed = { currentScreen ->
             logger { "Navigator Pop Screen!! :: $currentScreen" }
             true
         }

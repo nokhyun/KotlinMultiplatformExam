@@ -1,3 +1,5 @@
+package com.nokhyun.kmmexam
+
 import android.app.Application
 import di.appModule
 import org.koin.android.ext.koin.androidContext
@@ -8,11 +10,9 @@ class ExamApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        /** 수정필요. */
         startKoin {
             androidContext(this@ExamApplication)
             androidLogger()
-//            modules(appModule() + androidModule)
             modules(appModule())
         }
     }

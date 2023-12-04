@@ -2,6 +2,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
+import io.kamel.core.config.KamelConfig
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -12,6 +13,7 @@ import sensor.SensorManager
 
 @Composable
 fun MainView(
+    kamelConfig: KamelConfig? = null,
     onBackPressed: SharedFlow<Unit>? = null
 ) {
     val sensorManager = SensorManager()
