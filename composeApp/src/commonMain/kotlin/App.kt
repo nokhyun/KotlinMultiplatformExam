@@ -12,7 +12,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.onGloballyPositioned
-import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import details.RecipeDetails
 import kotlinx.coroutines.Dispatchers
@@ -22,9 +21,9 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import model.recipesList
-import network_exam.NetworkExam
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.resource
+import paging.FakePagingScreen
 import recipeslist.RecipesListScreen
 import sensor.SensorManager
 import sharedelementtransaction.HomeScreen
@@ -40,9 +39,10 @@ fun App(
     onBackPressed: SharedFlow<Unit>? = null,
 ) {
     when (getPlatformName()) {
-        "iOS",
+//        "iOS" -> NetworkExam()
 //        "Android" -> NavigatorExam()
-        "Android" -> NetworkExam()
+        "iOS",
+        "Android" -> FakePagingExam()
         else -> RecipeScreen(sensorManager, isLarge, onBackPressed)
     }
 }
@@ -149,6 +149,17 @@ fun NavigatorExam() {
     Navigator(
         screen = HomeScreen(),
         onBackPressed = { currentScreen ->
+            logger { "Navigator Pop Screen!! :: $currentScreen" }
+            true
+        }
+    )
+}
+
+@Composable
+fun FakePagingExam(){
+    Navigator(
+        screen = FakePagingScreen(),
+        onBackPressed = {currentScreen ->
             logger { "Navigator Pop Screen!! :: $currentScreen" }
             true
         }

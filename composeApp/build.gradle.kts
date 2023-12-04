@@ -53,6 +53,8 @@ kotlin {
                 implementation(libs.ktor.client.android)
                 implementation(libs.android.driver)
 
+                // 확인필요.
+                implementation(libs.koin.android)
 //                implementation("app.cash.sqldelight:android-driver:2.0.0")
             }
         }
@@ -89,6 +91,11 @@ kotlin {
 //                implementation(libs.koin.core)
 //                implementation(libs.koin.test)
 //                implementation("io.insert-koin:koin-android:3.2.0")
+                implementation(libs.koin.core)
+                implementation(libs.koin.test)
+
+                implementation(libs.paging.compose.common)
+                implementation(libs.paging.common)
             }
         }
 
@@ -108,9 +115,6 @@ kotlin {
                 implementation(libs.ktor.client.logging)
 
 //                implementation("app.cash.sqldelight:sqlite-driver:2.0.0")
-
-                implementation(libs.koin.core)
-                implementation(libs.koin.test)
             }
         }
     }
