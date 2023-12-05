@@ -12,3 +12,12 @@ This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
 
 
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+----------------
+<h1>Paging Exam</h1> 
+<br>
+* IOS
+https://github.com/nokhyun/KotlinMultiplatformExam/assets/59673248/7b96d1f9-19d2-4e3a-8dfb-e23c577345df
+<br>
+* AOS
+https://github.com/nokhyun/KotlinMultiplatformExam/assets/59673248/713d3b39-ce93-4815-8db6-623299bb9cb1
+
