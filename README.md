@@ -14,10 +14,14 @@ This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
 ----------------
 <h1>Paging Exam</h1> 
-<br>
-* IOS
-<img src="https://github.com/nokhyun/KotlinMultiplatformExam/assets/59673248/310ea58a-09d1-4ce5-bec8-232683ffbe30">
-<br>
-* AOS
-<img src="https://github.com/nokhyun/KotlinMultiplatformExam/assets/59673248/44305acf-4a9f-4e6c-b513-b0435fae9b7d">
+<table>
+  <tr>
+    <th scope="col">IOS</th>
+    <th scope="col">AOS</th>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/nokhyun/KotlinMultiplatformExam/assets/59673248/310ea58a-09d1-4ce5-bec8-232683ffbe30"></td>
+    <td><img src="https://github.com/nokhyun/KotlinMultiplatformExam/assets/59673248/44305acf-4a9f-4e6c-b513-b0435fae9b7d"></td>
+  </tr>
+</table>
 
