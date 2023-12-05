@@ -3,7 +3,7 @@ package db
 import com.nokhyun.kmmexam.common.cache.AppDatabase
 import com.nokhyun.kmmexam.common.cache.Favorite
 
-internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
+class Database(databaseDriverFactory: DatabaseDriverFactory) {
     private val database = AppDatabase(databaseDriverFactory.createDriver())
     private val dbQuery = database.appDatabaseQueries
 
