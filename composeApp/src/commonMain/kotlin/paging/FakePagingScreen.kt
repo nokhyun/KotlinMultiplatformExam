@@ -35,7 +35,7 @@ class FakePagingScreen : Screen {
         val result = screenModel.fakePagingData.collectAsLazyPagingItems()
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {
             items(result.itemSnapshotList.items) { item ->
-                asyncPainterResource(Url(item.profilePicture)).let {
+                asyncPainterResource(item.profilePicture).let {
                     when (val image = it) {
                         is Resource.Failure -> {
                             logger { "${image.exception}" }

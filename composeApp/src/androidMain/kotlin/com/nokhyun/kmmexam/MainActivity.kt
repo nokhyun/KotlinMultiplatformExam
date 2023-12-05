@@ -8,8 +8,13 @@ import androidx.activity.addCallback
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
+import io.kamel.core.config.KamelConfig
+import io.kamel.core.config.takeFrom
+import io.kamel.image.config.Default
+import io.kamel.image.config.resourcesFetcher
 
 @OptIn(InternalVoyagerApi::class)
 class MainActivity : ComponentActivity() {
@@ -24,7 +29,14 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            MainView()
+            val kamelConfig = remember {
+                KamelConfig {
+                    takeFrom(KamelConfig.Default)
+                    resourcesFetcher(this@MainActivity)
+                }
+            }
+
+            MainView(kamelConfig)
         }
     }
 }

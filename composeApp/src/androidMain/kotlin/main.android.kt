@@ -1,8 +1,10 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import io.kamel.core.config.KamelConfig
+import io.kamel.core.config.takeFrom
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -38,6 +40,7 @@ fun MainView(
     }
 
     App(
+        kamelConfig = kamelConfig,
         sensorManager = sensorManager,
         onBackPressed = onBackPressed
     )

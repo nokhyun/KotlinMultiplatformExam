@@ -3,6 +3,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +16,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import cafe.adriel.voyager.navigator.Navigator
 import details.RecipeDetails
 import io.kamel.core.config.KamelConfig
+import io.kamel.image.config.LocalKamelConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -35,6 +37,7 @@ const val DetailsScreen = "details"
 
 @Composable
 fun App(
+    kamelConfig: KamelConfig? = null,
     sensorManager: SensorManager,
     isLarge: Boolean = false,
     onBackPressed: SharedFlow<Unit>? = null,
@@ -44,7 +47,7 @@ fun App(
 //        "Android" -> NavigatorExam()
         "iOS",
         "Android",
-        -> FakePagingExam()
+        -> FakePagingExam(kamelConfig)
 
         else -> RecipeScreen(sensorManager, isLarge, onBackPressed)
     }
@@ -159,12 +162,26 @@ fun NavigatorExam() {
 }
 
 @Composable
-fun FakePagingExam() {
-    Navigator(
-        screen = FakePagingScreen(),
-        onBackPressed = { currentScreen ->
-            logger { "Navigator Pop Screen!! :: $currentScreen" }
-            true
+fun FakePagingExam(kamelConfig: KamelConfig?) {
+    kamelConfig?.also {
+        CompositionLocalProvider(LocalKamelConfig provides it){
+            Navigator(
+                screen = FakePagingScreen(),
+                onBackPressed = { currentScreen ->
+                    logger { "Navigator Pop Screen!! :: $currentScreen" }
+                    true
+                }
+            )
         }
-    )
+    }
+
+
+
+//    Navigator(
+//        screen = FakePagingScreen(),
+//        onBackPressed = { currentScreen ->
+//            logger { "Navigator Pop Screen!! :: $currentScreen" }
+//            true
+//        }
+//    )
 }

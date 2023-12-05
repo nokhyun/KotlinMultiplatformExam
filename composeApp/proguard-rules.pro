@@ -23,3 +23,6 @@
 ##---------------Begin: proguard configuration for Pusher Java Client  ----------
 -dontwarn org.slf4j.impl.StaticLoggerBinder
 ##---------------End: proguard configuration for Pusher Java Client  ----------
+
+## Kamel
+-keep class io.kamel.** { *; }
