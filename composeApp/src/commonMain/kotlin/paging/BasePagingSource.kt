@@ -68,14 +68,14 @@ abstract class BasePagingSource<Value: Any> : PagingSource<Int, Value>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Value> {
         val currentPage = params.key ?: 1
-//        val limit = params.loadSize
-        val limit = 9
+        val limit = params.loadSize
         return try {
             val response = fetchData(currentPage, limit)
             PagingSourceLoadResultPage(
                 data = response.users,
                 prevKey = if (currentPage == 1) null else currentPage - 1,
-                nextKey = (currentPage + 1).takeIf { response.users.lastIndex >= currentPage }
+//                nextKey = (currentPage + 1).takeIf { response.users.lastIndex >= currentPage }
+                nextKey = currentPage + 1
             )
         } catch (e: Exception) {
             PagingSourceLoadResultError(e)

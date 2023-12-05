@@ -6,22 +6,24 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import app.cash.paging.LoadStateError
 import app.cash.paging.compose.collectAsLazyPagingItems
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import io.kamel.core.Resource
 import io.kamel.image.asyncPainterResource
-import io.ktor.http.Url
 import logger
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.qualifier.Qualifier
@@ -34,35 +36,67 @@ class FakePagingScreen : Screen {
         val screenModel = getScreenModel<FakeApiScreenModel>()
         val result = screenModel.fakePagingData.collectAsLazyPagingItems()
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-            items(result.itemSnapshotList.items) { item ->
-                asyncPainterResource(item.profilePicture).let {
-                    when (val image = it) {
-                        is Resource.Failure -> {
-                            logger { "${image.exception}" }
-                            Text("paging Failure")
-                        }
+            items(result.itemCount) {
+                val item = result[it]!!
 
-                        is Resource.Loading -> {
-                            Text("paging Loading")
-                        }
+                Column(
+                    modifier = Modifier,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    asyncPainterResource(item.profilePicture).apply {
+                        when (this) {
+                            is Resource.Loading -> {
+                                CircularProgressIndicator()
+                            }
 
-                        is Resource.Success -> {
-                            Column {
+                            is Resource.Failure -> {}
+                            is Resource.Success -> {
                                 Image(
-                                    modifier = Modifier.fillMaxWidth()
+                                    modifier = Modifier
+                                        .fillMaxWidth()
                                         .height(200.dp),
-                                    painter = image.value,
+                                    painter = this.value,
                                     contentScale = ContentScale.FillBounds,
                                     contentDescription = null
                                 )
-                                Text(
-                                    text = "test: ${item.firstName + item.lastName}",
-                                    fontSize = 16.sp,
-                                    fontFamily = FontFamily.SansSerif,
-                                    textAlign = TextAlign.Center
-                                )
                             }
                         }
+                    }
+
+                    Text(
+                        text = "name: ${item.firstName + item.lastName}",
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily.SansSerif,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+
+            result.loadState.apply {
+                when {
+                    refresh is LoadStateError -> {
+                        item {
+                            Button({
+                                result.retry()
+                            }) {
+                                Text("Retry!!!")
+                            }
+                        }
+                    }
+
+                    append is LoadStateError -> {
+                        item {
+                            Button({
+                                result.retry()
+                            }) {
+                                Text("Retry!!!")
+                            }
+                        }
+                    }
+
+                    else -> {
+                        // TODO
+                        logger { "loadState: $this" }
                     }
                 }
             }

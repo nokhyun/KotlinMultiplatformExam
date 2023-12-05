@@ -11,7 +11,7 @@ class FakePagingUseCase(
 
     operator fun invoke(): Flow<PagingData<User>> {
         return Pager(
-            config = PagingConfig(pageSize = 1),
+            config = PagingConfig(pageSize = 5),
             pagingSourceFactory = { fakeApiPageSource }
         ).flow
     }
