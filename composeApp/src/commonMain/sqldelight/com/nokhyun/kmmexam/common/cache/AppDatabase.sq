@@ -1,0 +1,16 @@
+CREATE TABLE Favorite (
+    num INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    profileUrl Text NOT NULL
+);
+
+insertFavorite:
+INSERT INTO Favorite(num, name, profileUrl)
+VALUES(?, ?, ?);
+
+selectFavorite:
+SELECT Favorite.*
+FROM Favorite;
+
+removeAllFavorite:
+DELETE FROM Favorite;
