@@ -14,10 +14,15 @@ This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
 ----------------
 <h1>Paging Exam</h1> 
+- java 17
+<br>
+- kotlin 1.9.20
+<br>
+
 <table>
   <tr>
-    <th scope="col">IOS</th>
-    <th scope="col">AOS</th>
+    <th scope="col">IOS 15</th>
+    <th scope="col">AOS ver31</th>
   </tr>
   <tr>
     <td><img src="https://github.com/nokhyun/KotlinMultiplatformExam/assets/59673248/310ea58a-09d1-4ce5-bec8-232683ffbe30"></td>
@@ -25,3 +30,20 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
   </tr>
 </table>
 
+<h3>library</h3>
+- voyager navigator
+<br>
+- ktor-client
+<br>
+- ktor-logging
+<br>
+- ktor-serialization
+<br>
+- ktor-core
+<br>
+- kamel
+<br>
+- coroutine
+<br>
+- datetime
+  
