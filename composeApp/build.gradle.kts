@@ -1,14 +1,13 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     kotlin("plugin.serialization").version("1.9.20")
-//    id("com.squareup.sqldelight").version("1.5.5")
+    id(libs.plugins.sqldelight.get().pluginId)
 }
 
 kotlin {
@@ -32,16 +31,14 @@ kotlin {
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
-            isStatic = true
+//            isStatic = true
+
+            isStatic = false
+            linkerOpts.add("-lsqlite3")
         }
     }
 
     sourceSets {
-        val coroutinesVersion = "1.7.3"
-        val ktorVersion = "2.3.5"
-        val sqlDelightVersion = "1.5.5"
-        val dateTimeVersion = "0.4.1"
-
         val androidMain by getting {
             dependencies {
                 implementation(libs.compose.ui)
@@ -52,19 +49,19 @@ kotlin {
 
                 // ktor
                 implementation(libs.ktor.client.android)
-                implementation(libs.android.driver)
 
                 // 확인필요.
                 implementation(libs.koin.android)
-//                implementation("app.cash.sqldelight:android-driver:2.0.0")
+
+                //
+                implementation("com.squareup.sqldelight:android-driver:1.5.5")
             }
         }
 
         val iosMain by getting {
             dependencies {
                 implementation(libs.ktor.client.darwin)
-                implementation(libs.native.driver)
-//                implementation("app.cash.sqldelight:native-driver:2.0.0")
+                implementation("com.squareup.sqldelight:native-driver:1.5.5")
             }
         }
 
@@ -88,15 +85,14 @@ kotlin {
                 implementation(libs.voyager.tab.navigator)
                 // Transitions
                 implementation(libs.voyager.transitions)
-                // koin
-//                implementation(libs.koin.core)
-//                implementation(libs.koin.test)
-//                implementation("io.insert-koin:koin-android:3.2.0")
                 implementation(libs.koin.core)
                 implementation(libs.koin.test)
 
                 implementation(libs.paging.compose.common)
                 implementation(libs.paging.common)
+
+                //
+                implementation("com.squareup.sqldelight:runtime:1.5.5")
             }
         }
 
@@ -111,11 +107,8 @@ kotlin {
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.client.content.negotiation)
                 implementation(libs.ktor.serialization.kotlinx.json)
-                implementation(libs.runtime)
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.ktor.client.logging)
-
-//                implementation("app.cash.sqldelight:sqlite-driver:2.0.0")
             }
         }
     }
@@ -157,14 +150,20 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
 
         getByName("debug") {
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -187,4 +186,13 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+sqldelight {
+    database("AppDatabase") {
+        packageName = "com.nokhyun.kmmexam.common.cache"
+    }
+
+    linkSqlite = true
+
 }

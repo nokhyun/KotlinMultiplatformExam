@@ -26,11 +26,10 @@ ktorClientCore = "2.3.5"
 pagingCommon = "3.3.0-alpha02-0.4.0"
 pagingComposeCommon = "3.3.0-alpha02-0.4.0"
 runtimeSaveable = "1.5.4"
-sqlDelightVersion = "1.5.5"
 voyagerVersion = "1.0.0-rc10"
+sqldelight = "1.5.5"
 
 [libraries]
-android-driver = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqlDelightVersion" }
 androidx-runtime-saveable = { module = "androidx.compose.runtime:runtime-saveable", version.ref = "runtimeSaveable" }
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCore" }
@@ -61,10 +60,8 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktorClientSerialization" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorClientSerialization" }
-native-driver = { module = "com.squareup.sqldelight:native-driver", version.ref = "sqlDelightVersion" }
 paging-common = { module = "app.cash.paging:paging-common", version.ref = "pagingCommon" }
 paging-compose-common = { module = "app.cash.paging:paging-compose-common", version.ref = "pagingComposeCommon" }
-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqlDelightVersion" }
 voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyagerVersion" }
 voyager-tab-navigator = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyagerVersion" }
 voyager-bottom-sheet-navigator = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyagerVersion" }
@@ -74,3 +71,4 @@ voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+sqldelight = { id = "com.squareup.sqldelight", version.ref = "sqldelight"}

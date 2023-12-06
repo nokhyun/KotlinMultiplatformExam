@@ -1,0 +1,17 @@
+CREATE TABLE Favorite (
+    num INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    profileUrl Text NOT NULL
+);
+
+--     num INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+insertFavorite:
+INSERT INTO Favorite(num, name, profileUrl)
+VALUES(?, ?, ?);
+
+selectFavorite:
+SELECT Favorite.*
+FROM Favorite;
+
+removeAllFavorite:
+DELETE FROM Favorite;

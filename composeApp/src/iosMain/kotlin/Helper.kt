@@ -1,5 +1,6 @@
 import di.Greeting
 import di.appModule
+import di.sqldelightModule
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
@@ -11,6 +12,6 @@ class GreetingHelper : KoinComponent {
 
 fun initKoin() {
     startKoin {
-        modules(appModule())
+        modules(appModule() + sqldelightModule)
     }
 }
