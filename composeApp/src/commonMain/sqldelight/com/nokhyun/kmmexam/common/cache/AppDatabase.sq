@@ -4,6 +4,7 @@ CREATE TABLE Favorite (
     profileUrl Text NOT NULL
 );
 
+--     num INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 insertFavorite:
 INSERT INTO Favorite(num, name, profileUrl)
 VALUES(?, ?, ?);

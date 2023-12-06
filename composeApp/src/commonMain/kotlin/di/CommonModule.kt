@@ -2,6 +2,7 @@ package di
 
 import db.Database
 import db.DatabaseDriverFactory
+import org.koin.core.module.Module
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -28,5 +29,6 @@ val fakeApiUseCase = module {
 val fakePagingSource = module {
     singleOf(::FakePagingSource)
     singleOf(::Database)
-    singleOf(::DatabaseDriverFactory)
 }
+
+expect val sqldelightModule: Module

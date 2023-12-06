@@ -12,6 +12,7 @@ class FakePagingSource(
 
     override suspend fun fetchData(page: Int, limit: Int): FakePagingItem<User> {
 //        logger { "allFavorite: ${database.allFavorite()[0].name}" }
+        logger { "allFavorite: ${database.allFavorite()}" }
 //        database.createFavorite(listOf(Favorite(0, "name", "")))
         return fakeApiRemoteDataSource.fetchData(page, limit)
     }

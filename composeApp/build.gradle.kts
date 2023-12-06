@@ -31,7 +31,10 @@ kotlin {
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
-            isStatic = true
+//            isStatic = true
+
+            isStatic = false
+            linkerOpts.add("-lsqlite3")
         }
     }
 
@@ -147,14 +150,20 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
 
         getByName("debug") {
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -183,4 +192,7 @@ sqldelight {
     database("AppDatabase") {
         packageName = "com.nokhyun.kmmexam.common.cache"
     }
+
+    linkSqlite = true
+
 }
