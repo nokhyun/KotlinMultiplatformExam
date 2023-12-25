@@ -164,7 +164,7 @@ fun NavigatorExam() {
 @Composable
 fun FakePagingExam(kamelConfig: KamelConfig?) {
     kamelConfig?.also {
-        CompositionLocalProvider(LocalKamelConfig provides it){
+        CompositionLocalProvider(LocalKamelConfig provides it) {
             Navigator(
                 screen = FakePagingScreen(),
                 onBackPressed = { currentScreen ->
@@ -174,7 +174,6 @@ fun FakePagingExam(kamelConfig: KamelConfig?) {
             )
         }
     }
-
 
 
 //    Navigator(

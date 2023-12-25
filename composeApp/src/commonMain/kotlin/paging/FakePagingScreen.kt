@@ -136,7 +136,6 @@ fun LazyGridItem(item: User) {
                 }
             }
 
-            // test
             // TODO 편하게 사용하려면 path로 이미지 가져오는거 따로 만들어놔야할듯?
             var image by remember { mutableStateOf<ImageBitmap?>(null) }
             var isClicked by remember { mutableStateOf(false) }
@@ -158,7 +157,6 @@ fun LazyGridItem(item: User) {
                     contentDescription = null
                 )
             }
-            // test end
         }
 
         Text(
