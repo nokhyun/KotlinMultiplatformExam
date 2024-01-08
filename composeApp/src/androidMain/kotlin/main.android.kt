@@ -40,8 +40,5 @@ fun MainView(
     }
 
     App(
-        kamelConfig = kamelConfig,
-        sensorManager = sensorManager,
-        onBackPressed = onBackPressed
-    )
+        kamelConfig = kamelConfig,)
 }
