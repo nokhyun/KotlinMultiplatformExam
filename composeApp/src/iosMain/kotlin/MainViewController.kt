@@ -36,5 +36,5 @@ fun MainViewController() = ComposeUIViewController {
         }
     }
 
-    App(kamelConfig, sensorManager)
+    App(kamelConfig)
 }
