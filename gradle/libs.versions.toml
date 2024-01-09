@@ -1,6 +1,6 @@
 [versions]
 compose = "1.5.4"
-compose-plugin = "1.5.3"
+compose-plugin = "1.5.11"
 compose-compiler = "1.5.3"
 agp = "8.2.0"
 android-minSdk = "24"
@@ -19,7 +19,7 @@ coroutinesVersion = "1.7.3"
 kamelImage = "0.8.2" # 0.8.3 ~ 0.9.0 은 IOS 이슈있음.
 koinCore = "3.4.3"
 koinTest = "3.2.0"
-kotlin = "1.9.10"
+kotlin = "1.9.21"
 junit = "4.13.2"
 ktorClientSerialization = "2.3.6"
 ktorClientCore = "2.3.6"
