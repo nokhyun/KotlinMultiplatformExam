@@ -28,6 +28,7 @@ pagingComposeCommon = "3.3.0-alpha02-0.4.0"
 runtimeSaveable = "1.5.4"
 voyagerVersion = "1.0.0-rc10"
 sqldelight = "1.5.5"
+ksp = "1.9.21-1.0.15"
 
 [libraries]
 androidx-runtime-saveable = { module = "androidx.compose.runtime:runtime-saveable", version.ref = "runtimeSaveable" }
@@ -72,3 +73,4 @@ jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 sqldelight = { id = "com.squareup.sqldelight", version.ref = "sqldelight"}
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
