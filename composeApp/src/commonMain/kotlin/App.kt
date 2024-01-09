@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.Navigator
+import io.github.aakira.napier.Napier
 import io.kamel.core.config.KamelConfig
 import io.kamel.image.config.LocalKamelConfig
 import paging.FakePagingScreen
@@ -18,7 +19,7 @@ import paging.FakePagingScreen
 fun App(kamelConfig: KamelConfig? = null) {
     when (getPlatformName()) {
         "iOS",
-//        "Android",
+        "Android",
         -> FakePagingExam(kamelConfig)
 
         else -> NavigatorExam()
@@ -38,6 +39,7 @@ fun NavigatorExam() {
 
 @Composable
 fun FakePagingExam(kamelConfig: KamelConfig?) {
+    Napier.e { "[FakePagingExam]" }
     kamelConfig?.also {
         CompositionLocalProvider(LocalKamelConfig provides it) {
             Navigator(

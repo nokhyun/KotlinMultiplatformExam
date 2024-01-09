@@ -6,6 +6,7 @@ struct iOSApp: App {
     
     init() {
         HelperKt.doInitKoin()
+        NapierProxyKt.debugBuild()
     }
     
     private let navigateName = "navigate"

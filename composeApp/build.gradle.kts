@@ -92,8 +92,11 @@ kotlin {
                 implementation(libs.paging.compose.common)
                 implementation(libs.paging.common)
 
-                //
-                implementation("com.squareup.sqldelight:runtime:1.5.5")
+                // db
+                implementation(libs.sqldelight)
+
+                // log
+                implementation(libs.napier)
             }
         }
 
