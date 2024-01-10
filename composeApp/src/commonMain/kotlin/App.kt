@@ -14,15 +14,20 @@ import io.github.aakira.napier.Napier
 import io.kamel.core.config.KamelConfig
 import io.kamel.image.config.LocalKamelConfig
 import paging.FakePagingScreen
+import tab.TabNavigatorExam
 
 @Composable
 fun App(kamelConfig: KamelConfig? = null) {
-    when (getPlatformName()) {
-        "iOS",
-        "Android",
-        -> FakePagingExam(kamelConfig)
+    kamelConfig?.also {
+        CompositionLocalProvider(LocalKamelConfig provides it) {
+            when (getPlatformName()) {
+                "iOS",
+                "Android",
+                -> TabNavigatorExam()
 
-        else -> NavigatorExam()
+                else -> NavigatorExam()
+            }
+        }
     }
 }
 
@@ -38,19 +43,15 @@ fun NavigatorExam() {
 }
 
 @Composable
-fun FakePagingExam(kamelConfig: KamelConfig?) {
+fun FakePagingExam() {
     Napier.e { "[FakePagingExam]" }
-    kamelConfig?.also {
-        CompositionLocalProvider(LocalKamelConfig provides it) {
-            Navigator(
-                screen = FakePagingScreen(),
-                onBackPressed = { currentScreen ->
-                    logger { "Navigator Pop Screen!! :: $currentScreen" }
-                    true
-                }
-            )
+    Navigator(
+        screen = FakePagingScreen(),
+        onBackPressed = { currentScreen ->
+            logger { "Navigator Pop Screen!! :: $currentScreen" }
+            true
         }
-    }
+    )
 }
 
 class HomeScreen : Screen {

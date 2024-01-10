@@ -2,6 +2,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import io.github.aakira.napier.Napier
 
 expect fun getPlatformName(): String
 
@@ -14,5 +15,5 @@ expect class PlatformContext
 expect fun getPlatformContext(): PlatformContext
 
 fun logger(log: () -> Any?) {
-    println("EmmExam Log: ${log()}")
+    Napier.e { log().toString() }
 }
