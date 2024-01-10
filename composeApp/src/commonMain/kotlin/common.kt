@@ -17,3 +17,4 @@ expect fun getPlatformContext(): PlatformContext
 fun logger(log: () -> Any?) {
     Napier.e { log().toString() }
 }
+

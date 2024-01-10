@@ -35,6 +35,8 @@ import app.cash.paging.compose.collectAsLazyPagingItems
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
+import common.Preference
+import getPlatformContext
 import io.kamel.core.Resource
 import io.kamel.image.asyncPainterResource
 import kotlinx.coroutines.Dispatchers
@@ -108,7 +110,10 @@ class FakePagingScreen : Screen {
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun LazyGridItem(item: User) {
+fun LazyGridItem(
+    item: User,
+    preference: Preference = Preference(getPlatformContext())
+) {
     Column(
         modifier = Modifier,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -127,7 +132,10 @@ fun LazyGridItem(item: User) {
                         Image(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(200.dp),
+                                .height(200.dp)
+                                .clickable {
+                                    logger { preference.get(key = item.id.toString()) }
+                                },
                             painter = this.value,
                             contentScale = ContentScale.FillBounds,
                             contentDescription = null
@@ -152,6 +160,7 @@ fun LazyGridItem(item: User) {
                         .align(Alignment.TopEnd)
                         .clickable {
                             isClicked = !isClicked
+                            logger { preference.set(key = item.id.toString(), value = item.firstName + item.lastName) }
                         },
                     bitmap = image!!,
                     contentDescription = null
