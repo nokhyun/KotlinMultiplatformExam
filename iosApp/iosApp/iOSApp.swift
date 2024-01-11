@@ -29,3 +29,11 @@ struct iOSApp: App {
 		}
 	}
 }
+
+struct Preference {
+    let preference = UserDefaults.standard
+    
+    func set(key: String, value: String){
+        
+    }
+}

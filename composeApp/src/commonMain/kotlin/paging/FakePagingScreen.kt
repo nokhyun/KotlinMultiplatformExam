@@ -160,7 +160,7 @@ fun LazyGridItem(
                         .align(Alignment.TopEnd)
                         .clickable {
                             isClicked = !isClicked
-                            logger { preference.set(key = item.id.toString(), value = item.firstName + item.lastName) }
+                            preference.set(key = item.id.toString(), value = item.firstName + item.lastName)
                         },
                     bitmap = image!!,
                     contentDescription = null
