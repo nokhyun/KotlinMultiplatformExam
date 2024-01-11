@@ -1,8 +1,6 @@
 package paging
 
-import ImageBitmap.toImageBitmap
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,8 +12,9 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,7 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -39,11 +38,7 @@ import common.Preference
 import getPlatformContext
 import io.kamel.core.Resource
 import io.kamel.image.asyncPainterResource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import logger
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.resource
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.qualifier.Qualifier
 import org.koin.mp.KoinPlatform
@@ -108,7 +103,6 @@ class FakePagingScreen : Screen {
     }
 }
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun LazyGridItem(
     item: User,
@@ -144,28 +138,24 @@ fun LazyGridItem(
                 }
             }
 
-            // TODO 편하게 사용하려면 path로 이미지 가져오는거 따로 만들어놔야할듯?
-            var image by remember { mutableStateOf<ImageBitmap?>(null) }
             var isClicked by remember { mutableStateOf(false) }
-            LaunchedEffect(Unit) {
-                withContext(Dispatchers.Default) {
-                    image = resource("chef.png").readBytes().toImageBitmap()
-                }
-            }
 
-            image?.let {
-                Image(
-                    modifier = Modifier.size(24.dp)
-                        .background(if (isClicked) Color.Black else Color.White)
-                        .align(Alignment.TopEnd)
-                        .clickable {
-                            isClicked = !isClicked
-                            logger { preference.set(key = item.id.toString(), value = item.firstName + item.lastName) }
-                        },
-                    bitmap = image!!,
-                    contentDescription = null
-                )
-            }
+            Image(
+                modifier = Modifier
+                    .size(24.dp)
+                    .align(Alignment.TopEnd)
+                    .clickable {
+                        isClicked = !isClicked
+                        preference.set(key = item.profilePicture, value = item.id.toString())
+                    },
+                colorFilter = ColorFilter.tint(
+                    if (isClicked || preference.allValue()
+                            .any { it == item.id.toString() }
+                    ) Color.Red else Color.Gray
+                ),
+                imageVector = Icons.Default.Favorite,
+                contentDescription = null
+            )
         }
 
         Text(

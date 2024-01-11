@@ -7,4 +7,7 @@ expect class Preference(
 ){
     fun set(key: String, value: String)
     fun get(key: String): String
+
+    fun allKey(): List<String>
+    fun allValue(): List<String>
 }
