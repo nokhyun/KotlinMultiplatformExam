@@ -49,10 +49,11 @@ class FakePagingScreen : Screen {
     override fun Content() {
         val screenModel = getScreenModel<FakeApiScreenModel>()
         val result = screenModel.fakePagingData.collectAsLazyPagingItems()
+        val preference = Preference(getPlatformContext())
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {
             items(result.itemCount) {
                 val item = result[it]!!
-                LazyGridItem(item)
+                LazyGridItem(item, preference)
             }
 
             result.loadState.apply {
@@ -106,53 +107,58 @@ class FakePagingScreen : Screen {
 @Composable
 fun LazyGridItem(
     item: User,
-    preference: Preference = Preference(getPlatformContext())
+    preference: Preference
 ) {
+    logger { "[LazyGridItem]" }
     Column(
         modifier = Modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box {
-            asyncPainterResource(item.profilePicture).apply {
-                when (this) {
-                    is Resource.Loading -> {
-                        CircularProgressIndicator()
-                    }
+            val imgState = asyncPainterResource(item.profilePicture)
 
-                    is Resource.Failure -> {
-                    }
+            when (imgState) {
+                is Resource.Loading -> {
+                    CircularProgressIndicator()
+                }
 
-                    is Resource.Success -> {
-                        Image(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(200.dp)
-                                .clickable {
-                                    logger { preference.get(key = item.id.toString()) }
-                                },
-                            painter = this.value,
-                            contentScale = ContentScale.FillBounds,
-                            contentDescription = null
-                        )
-                    }
+                is Resource.Failure -> {
+                }
+
+                is Resource.Success -> {
+                    Image(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp)
+                            .clickable {
+                                logger { preference.get(key = item.id.toString()) }
+                            },
+                        painter = imgState.value,
+                        contentScale = ContentScale.FillBounds,
+                        contentDescription = null
+                    )
                 }
             }
 
-            var isClicked by remember { mutableStateOf(false) }
+            var favoriteColor by remember {
+                mutableStateOf(
+                    if (preference.allValue().any { it == item.id.toString() }) {
+                        Color.Red
+                    } else {
+                        Color.Gray
+                    }
+                )
+            }
 
             Image(
                 modifier = Modifier
                     .size(24.dp)
                     .align(Alignment.TopEnd)
                     .clickable {
-                        isClicked = !isClicked
+                        favoriteColor = if (favoriteColor == Color.Red) Color.Gray else Color.Red
                         preference.set(key = item.profilePicture, value = item.id.toString())
                     },
-                colorFilter = ColorFilter.tint(
-                    if (isClicked || preference.allValue()
-                            .any { it == item.id.toString() }
-                    ) Color.Red else Color.Gray
-                ),
+                colorFilter = ColorFilter.tint(favoriteColor),
                 imageVector = Icons.Default.Favorite,
                 contentDescription = null
             )
