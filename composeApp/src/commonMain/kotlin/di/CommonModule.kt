@@ -1,7 +1,6 @@
 package di
 
 import db.Database
-import db.DatabaseDriverFactory
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
@@ -11,9 +10,11 @@ import paging.FakeApiRemoteDataSourceImpl
 import paging.FakeApiScreenModel
 import paging.FakePagingSource
 import paging.FakePagingUseCase
+import paging.ServiceClient
 
 val commonModule = module {
     singleOf(::Greeting)
+    single { ServiceClient }
 }
 
 val fakeApiModule = module {

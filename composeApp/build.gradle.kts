@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.ksp)
     kotlin("plugin.serialization").version("1.9.20")
     id(libs.plugins.sqldelight.get().pluginId)
+    alias(libs.plugins.ktorfit)
 }
 
 kotlin {
@@ -97,6 +98,8 @@ kotlin {
 
                 // log
                 implementation(libs.napier)
+
+                implementation(libs.ktorfit.lib)
             }
         }
 
@@ -199,4 +202,20 @@ sqldelight {
 
     linkSqlite = true
 
+}
+
+val ktorfitVersion = "1.11.1"
+
+dependencies {
+    with("de.jensklingenberg.ktorfit:ktorfit-ksp:$ktorfitVersion") {
+        add("kspCommonMainMetadata", this)
+        add("kspAndroid", this)
+        add("kspAndroidTest", this)
+        add("kspIosX64", this)
+        add("kspIosX64Test", this)
+        add("kspIosArm64", this)
+        add("kspIosArm64Test", this)
+        add("kspIosSimulatorArm64", this)
+        add("kspIosSimulatorArm64Test", this)
+    }
 }
