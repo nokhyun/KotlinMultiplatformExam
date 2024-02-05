@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.ksp)
-    kotlin("plugin.serialization").version("1.9.20")
+    kotlin("plugin.serialization").version("1.9.22")
     id(libs.plugins.sqldelight.get().pluginId)
     alias(libs.plugins.ktorfit)
 }
@@ -87,6 +87,8 @@ kotlin {
                 implementation(libs.voyager.tab.navigator)
                 // Transitions
                 implementation(libs.voyager.transitions)
+                // koin
+                implementation("cafe.adriel.voyager:voyager-koin:1.0.0")
                 implementation(libs.koin.core)
                 implementation(libs.koin.test)
 

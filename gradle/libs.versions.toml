@@ -1,6 +1,6 @@
 [versions]
 compose = "1.5.4"
-compose-plugin = "1.5.11"
+compose-plugin = "1.5.12"
 compose-compiler = "1.5.3"
 agp = "8.2.0"
 android-minSdk = "24"
@@ -19,7 +19,7 @@ coroutinesVersion = "1.7.3"
 kamelImage = "0.8.2" # 0.8.3 ~ 0.9.0 은 IOS 이슈있음.
 koinCore = "3.4.3"
 koinTest = "3.2.0"
-kotlin = "1.9.21"
+kotlin = "1.9.22"
 junit = "4.13.2"
 ktorClientSerialization = "2.3.6"
 ktorClientCore = "2.3.6"
@@ -28,9 +28,9 @@ napier = "2.7.1"
 pagingCommon = "3.3.0-alpha02-0.4.0"
 pagingComposeCommon = "3.3.0-alpha02-0.4.0"
 runtimeSaveable = "1.5.4"
-voyagerVersion = "1.0.0-rc10"
+voyagerVersion = "1.0.0"
 sqldelight = "1.5.5"
-ksp = "1.9.21-1.0.16"
+ksp = "1.9.22-1.0.17"
 ktorfit = "1.11.1"
 
 [libraries]
