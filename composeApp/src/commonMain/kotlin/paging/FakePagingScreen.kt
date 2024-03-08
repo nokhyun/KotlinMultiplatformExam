@@ -31,19 +31,14 @@ import androidx.compose.ui.unit.sp
 import app.cash.paging.LoadStateError
 import app.cash.paging.LoadStateLoading
 import app.cash.paging.compose.collectAsLazyPagingItems
-import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.rememberScreenModel
-import cafe.adriel.voyager.core.screen.Screen
 import common.Preference
 import getPlatformContext
 import io.kamel.core.Resource
 import io.kamel.image.asyncPainterResource
 import logger
-import org.koin.core.parameter.ParametersDefinition
-import org.koin.core.qualifier.Qualifier
-import org.koin.mp.KoinPlatform
+import ui.BaseScreen
 
-class FakePagingScreen : Screen {
+class FakePagingScreen : BaseScreen() {
 
     @Composable
     override fun Content() {
@@ -91,16 +86,6 @@ class FakePagingScreen : Screen {
                 }
             }
         }
-    }
-
-    /** Base로 빠져버려! */
-    @Composable
-    inline fun <reified T : ScreenModel> getScreenModel(
-        qualifier: Qualifier? = null,
-        noinline parameters: ParametersDefinition? = null,
-    ): T {
-        val koin = KoinPlatform.getKoin()
-        return rememberScreenModel(tag = qualifier?.value) { koin.get(qualifier, parameters) }
     }
 }
 
