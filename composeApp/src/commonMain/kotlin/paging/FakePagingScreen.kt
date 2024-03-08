@@ -94,7 +94,6 @@ fun LazyGridItem(
     item: User,
     preference: Preference
 ) {
-    logger { "[LazyGridItem]" }
     Column(
         modifier = Modifier,
         horizontalAlignment = Alignment.CenterHorizontally
