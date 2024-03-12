@@ -8,6 +8,7 @@ import org.koin.dsl.module
 import paging.FakeApiRemoteDataSource
 import paging.FakeApiRemoteDataSourceImpl
 import paging.FakeApiScreenModel
+import paging.FakeDetailScreenModel
 import paging.FakePagingSource
 import paging.FakePagingUseCase
 import paging.ServiceClient
@@ -19,14 +20,14 @@ val commonModule = module {
 
 val fakeApiModule = module {
     singleOf(::FakeApiRemoteDataSourceImpl) { bind<FakeApiRemoteDataSource>() }
-    singleOf(::FakeApiScreenModel)
+    factory { FakeApiScreenModel(get()) }
+    factory { FakeDetailScreenModel() }
 }
 
 val fakeApiUseCase = module {
     singleOf(::FakePagingUseCase)
 }
 
-// DatabaseDriverFactory test
 val fakePagingSource = module {
     singleOf(::FakePagingSource)
     singleOf(::Database)

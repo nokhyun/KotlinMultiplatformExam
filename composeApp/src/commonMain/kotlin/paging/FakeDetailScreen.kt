@@ -18,6 +18,7 @@ class FakeDetailScreen : BaseScreen() {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
+        val fakeDetailScreenModel = getScreenModel<FakeDetailScreenModel>()
         Scaffold(
             topBar = {
                 Toolbar("Title") {
