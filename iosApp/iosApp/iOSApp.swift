@@ -16,7 +16,9 @@ struct iOSApp: App {
 		WindowGroup {
             if showMainView {
                 NavigationView(content: {
-                    NavigationLink(destination: ContentView()) { Text(self.navigateName)}
+                    NavigationLink(destination: ContentView()
+                        .navigationTitle("")
+                        .navigationBarHidden(true)) { Text(self.navigateName)}
                 })
             }else {
                 SplashView()
@@ -28,4 +30,16 @@ struct iOSApp: App {
             }
 		}
 	}
+}
+
+/* 제스쳐 뒤로가기 */
+extension UINavigationController: UIGestureRecognizerDelegate {
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
+    }
 }
