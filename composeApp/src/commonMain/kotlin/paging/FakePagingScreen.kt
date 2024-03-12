@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -31,6 +32,8 @@ import androidx.compose.ui.unit.sp
 import app.cash.paging.LoadStateError
 import app.cash.paging.LoadStateLoading
 import app.cash.paging.compose.collectAsLazyPagingItems
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import common.Preference
 import getPlatformContext
 import io.kamel.core.Resource
@@ -42,13 +45,17 @@ class FakePagingScreen : BaseScreen() {
 
     @Composable
     override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
         val screenModel = getScreenModel<FakeApiScreenModel>()
         val result = screenModel.fakePagingData.collectAsLazyPagingItems()
         val preference = Preference(getPlatformContext())
+
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {
             items(result.itemCount) {
                 val item = result[it]!!
-                LazyGridItem(item, preference)
+                LazyGridItem(item, preference) {
+                    navigator.push(FakeDetailScreen())
+                }
             }
 
             result.loadState.apply {
@@ -92,7 +99,8 @@ class FakePagingScreen : BaseScreen() {
 @Composable
 fun LazyGridItem(
     item: User,
-    preference: Preference
+    preference: Preference,
+    onDetailScreen: () -> Unit
 ) {
     Column(
         modifier = Modifier,
@@ -100,6 +108,15 @@ fun LazyGridItem(
     ) {
         Box {
             val imgState = asyncPainterResource(item.profilePicture)
+            var favoriteColor by remember {
+                mutableStateOf(
+                    if (preference.allValue().any { it == item.id.toString() }) {
+                        Color.Red
+                    } else {
+                        Color.Gray
+                    }
+                )
+            }
 
             when (imgState) {
                 is Resource.Loading -> {
@@ -116,36 +133,32 @@ fun LazyGridItem(
                             .height(200.dp)
                             .clickable {
                                 logger { preference.get(key = item.id.toString()) }
+                                onDetailScreen()
                             },
                         painter = imgState.value,
                         contentScale = ContentScale.FillBounds,
                         contentDescription = null
                     )
+
+                    Image(
+                        modifier = Modifier
+                            .size(24.dp)
+                            .align(Alignment.TopEnd)
+                            .padding(top = 8.dp, end = 8.dp)
+                            .clickable {
+                                favoriteColor =
+                                    if (favoriteColor == Color.Red) Color.Gray else Color.Red
+                                preference.set(
+                                    key = item.profilePicture,
+                                    value = item.id.toString()
+                                )
+                            },
+                        colorFilter = ColorFilter.tint(favoriteColor),
+                        imageVector = Icons.Default.Favorite,
+                        contentDescription = null
+                    )
                 }
             }
-
-            var favoriteColor by remember {
-                mutableStateOf(
-                    if (preference.allValue().any { it == item.id.toString() }) {
-                        Color.Red
-                    } else {
-                        Color.Gray
-                    }
-                )
-            }
-
-            Image(
-                modifier = Modifier
-                    .size(24.dp)
-                    .align(Alignment.TopEnd)
-                    .clickable {
-                        favoriteColor = if (favoriteColor == Color.Red) Color.Gray else Color.Red
-                        preference.set(key = item.profilePicture, value = item.id.toString())
-                    },
-                colorFilter = ColorFilter.tint(favoriteColor),
-                imageVector = Icons.Default.Favorite,
-                contentDescription = null
-            )
         }
 
         Text(
