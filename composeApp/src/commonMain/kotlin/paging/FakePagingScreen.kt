@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -53,8 +54,8 @@ class FakePagingScreen : BaseScreen() {
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {
             items(result.itemCount) {
                 val item = result[it]!!
-                LazyGridItem(item, preference) {
-                    navigator.push(FakeDetailScreen())
+                LazyGridItem(item, preference) { user, painter ->
+                    navigator.push(FakeDetailScreen(user, painter))
                 }
             }
 
@@ -100,7 +101,7 @@ class FakePagingScreen : BaseScreen() {
 fun LazyGridItem(
     item: User,
     preference: Preference,
-    onDetailScreen: () -> Unit
+    onDetailScreen: (User, Painter) -> Unit
 ) {
     Column(
         modifier = Modifier,
@@ -133,7 +134,7 @@ fun LazyGridItem(
                             .height(200.dp)
                             .clickable {
                                 logger { preference.get(key = item.id.toString()) }
-                                onDetailScreen()
+                                onDetailScreen(item, imgState.value)
                             },
                         painter = imgState.value,
                         contentScale = ContentScale.FillBounds,
